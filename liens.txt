@@ -1,0 +1,5 @@
+#creation de synk credentials sur jenkins
+
+https://app.snyk.io/account?fromGitHubAuth=true
+
+https://github.com/jenkinsci/snyk-security-scanner-plugin
