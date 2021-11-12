@@ -1,0 +1,33 @@
+ 1  git clone https://github.com/Pintademijote/projet-groupe-1.git
+    2  ls
+    3  cd projet-groupe-1/
+    4  ls
+    5  cd ..
+    6  git clone https://github.com/Pintademijote/jenkins-training.git
+    7  ls
+    8  cd jenkins-training/
+    9  ls
+   10  docker-compose up
+   11  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname
+-m)" -o /usr/local/bin/docker-compose
+   12  sudo chmod +x /usr/local/bin/docker-compose
+   13  exit
+   14  cd jenkins-training/
+   15  ls
+   16  docker-compose up -d
+   17  ls
+   18  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname
+-m)" -o /usr/local/bin/docker-compose
+   19  sudo chmod +x /usr/local/bin/docker-compose
+   20  docker-compose
+   21  docker-compose up -d
+   22  sudo systemctl status docker
+   23  sudo systemctl enabled docker
+   24  sudo systemctl enable docker
+   25  sudo systemctl start docker
+   26  sudo systemctl status docker
+   27  docker-compose up -d
+   28  ip a
+   29  docker ps
+   30  docker exec jenkins-training_jenkins_1 cat /var/jenkins_home/secrets/initialAdminPassword
+   31  history

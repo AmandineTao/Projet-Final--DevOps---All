@@ -1,0 +1,3 @@
+cd jenkins-training
+docker-compose up -d
+docker exec jenkins-training_jenkins_1 cat /var/jenkins_home/secrets/initialAdminPassword

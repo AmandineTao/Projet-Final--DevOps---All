@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.define "testing" do |testing|
+      testing.vm.box = "geerlingguy/centos7"
+      testing.vm.network "private_network", type: "static", ip: "192.168.99.9"
+      testing.vm.hostname = "testing"
+      testing.vm.provider "virtualbox" do |v|
+        v.name = "testing"
+        v.memory = 2048
+        v.cpus = 2
+      end
+      end
+    end
+  
