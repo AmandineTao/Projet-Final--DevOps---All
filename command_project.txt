@@ -1,3 +1,56 @@
+###server
 cd jenkins-training
 docker-compose up -d
 docker exec jenkins-training_jenkins_1 cat /var/jenkins_home/secrets/initialAdminPassword
+
+###testing
+sudo yum install nodejs
+
+
+###Ansible container: installer ansible sur le container jenkins
+yum install -y python3 python3-pip
+yum -y install epel-release
+yum -y install ansible
+
+###container jenkins: install dependances packages
+pip3 install openshift
+pip3 install kubernetes
+
+#ou en une ligne
+yum install -y python3 python3-pip epel-release ansible
+
+#######sur server
+##install kubespray: kubernetes tool for ansible
+git clone https://github.com/kubernetes-incubator/kubespray.git
+cd kubespray/
+
+#fichier text, requirements par rapport à la version de ansible
+pip install -r requirements-2.11.txt
+
+#copie sample folder in mycluster folder to be use
+cp -rfp inventory/sample inventory/mycluster
+declare -a IPS=(192.168.99.10 192.168.99.11 192.168.99.12)
+CONFIG_FILE=inventory/mycluster/hosts.yml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
+cat inventory/mycluster/hosts.yml
+
+#retirer node2: dans le kube_control_plane("des masters")
+vi inventory/mycluster/hosts.yml
+
+#créer le cluster de nos vm
+ansible-playbook -i inventory/mycluster/hosts.yml cluster.yml --become --become-user=root --extra-vars '{"ansible_user":"vagrant","ansible_ssh_pass":"vagrant","ansible_sudo_pass":"root"}'
+
+#donner droit au user vagrant sur admin.conf,  
+USERNAME=$(whoami)
+sudo chown -R $USERNAME:$USERNAME /etc/kubernetes/admin.conf
+
+#informe KUBECONFIG que le fichier admin.conf est le fichier de configuration
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+
+#############
+
+
+#####server
+unset KUBECONFIG
+cp /etc/kubernetes/admin.conf ${HOME}/.kube/config
+pip3 install kubernetes
